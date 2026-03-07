@@ -1,0 +1,22 @@
+class Solution:
+    def findSubtreeSizes(self, parent: List[int], s: str) -> List[int]:
+        N = len(parent)
+        newParent = parent + []
+        newCount = [1] * N
+
+        for i in range(1, N):
+            p = parent[i]
+            while p != -1:
+                if s[p] != s[i]:
+                    p = parent[p]
+                else:
+                    newParent[i] = p
+                    break
+        
+        for i in range(1, N):
+            p = newParent[i]
+            while p != -1:
+                newCount[p] += 1
+                p = newParent[p]
+        
+        return newCount
